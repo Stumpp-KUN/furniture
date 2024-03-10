@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="create_furniture_detail_table" author="you">
+        <createTable tableName="furniture_detail">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="length" type="DOUBLE"/>
+            <column name="width" type="DOUBLE"/>
+            <column name="height" type="DOUBLE"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_hole_table" author="you">
+        <createTable tableName="hole">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="diameter" type="DOUBLE"/>
+            <column name="depth" type="DOUBLE"/>
+            <column name="entry_speed" type="DOUBLE"/>
+            <column name="exit_speed" type="DOUBLE"/>
+            <column name="x_coordinate" type="DOUBLE"/>
+            <column name="y_coordinate" type="DOUBLE"/>
+            <column name="z_coordinate" type="DOUBLE"/>
+            <column name="furniture_detail_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_fk_hole_furniture_detail" author="you">
+        <addForeignKeyConstraint baseColumnNames="furniture_detail_id"
+                                 baseTableName="hole"
+                                 constraintName="fk_hole_furniture_detail"
+                                 referencedColumnNames="id"
+                                 referencedTableName="furniture_detail"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+
+</databaseChangeLog>
